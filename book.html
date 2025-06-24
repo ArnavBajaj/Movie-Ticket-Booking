@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Movie - CineBooker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="panel">
+            <h2>Booking: {{ movie.title }}</h2>
+            <div class="movie-details">
+                <p><strong>Show Time:</strong> {{ movie.time }}</p>
+                <p><strong>Screen:</strong> {{ movie.screen }}</p>
+            </div>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="card">
+                <form method="POST">
+                    <div class="form-group">
+                        <label>User:</label>
+                        <input type="text" name="user" value="{{ session['username'] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Seats:</label>
+                        <input type="number" name="seats" required min="1" max="10">
+                    </div>
+                    <button type="submit" class="btn">Confirm Booking</button>
+                </form>
+            </div>
+            <div class="actions mt-2">
+                <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

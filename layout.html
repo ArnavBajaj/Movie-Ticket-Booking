@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Movie Booking System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <nav>
+                    <a href="{{ url_for('index') }}" class="nav-brand">
+                        🎬 CineBooker
+                    </a>
+                    <div class="nav-links">
+                        {% if session.get('username') %}
+                            {% if session.get('role') == 'admin' %}
+                                <a href="{{ url_for('admin_home') }}" class="nav-link">Admin Dashboard</a>
+                                <a href="{{ url_for('admin_bookings') }}" class="nav-link">View Bookings</a>
+                            {% else %}
+                                <a href="{{ url_for('index') }}" class="nav-link">Movies</a>
+                                <a href="#" class="nav-link">My Bookings</a>
+                            {% endif %}
+                            <a href="{{ url_for('logout') }}" class="btn btn-small">Logout</a>
+                        {% else %}
+                            <a href="{{ url_for('login') }}" class="btn">Login</a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-links">
+                        <a href="#" class="nav-link">About</a>
+                        <a href="#" class="nav-link">Contact</a>
+                        <a href="#" class="nav-link">Privacy Policy</a>
+                    </div>
+                    <p class="copyright">&copy; 2025 CineBooker Movie Booking System</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
