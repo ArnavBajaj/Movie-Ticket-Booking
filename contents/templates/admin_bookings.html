@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - View Bookings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bookings.css') }}">
+</head>
+<body>
+    <h2>All Bookings</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Movie</th>
+                <th>Show Time</th>
+                <th>Seats</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.user }}</td>
+                <td>{{ booking.movie_name }}</td>
+                <td>{{ booking.show_time }}</td>
+                <td>{{ booking.seats }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_home') }}">Back</a>
+</body>
+</html>

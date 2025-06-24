@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Movies</title>
+</head>
+<body>
+    <h1>Now Showing</h1>
+    <ul>
+        {% for movie in movies %}
+            <li>
+                <strong>{{ movie.name }}</strong> ({{ movie.genre }})
+                <a href="/book/{{ movie.name }}">Book Now</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

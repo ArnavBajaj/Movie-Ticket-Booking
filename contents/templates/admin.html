@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <script>
+        function deleteMovie(movieId) {
+            if (confirm("Are you sure you want to delete this movie?")) {
+                fetch(`/delete_movie/${movieId}`, { method: "POST" })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert("Failed to delete movie.");
+                        }
+                    });
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+
+    <h2>Movies</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Show Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+            <tr id="movie-{{ movie._id }}">
+                <td>{{ movie.title if 'title' in movie else 'Untitled' }}</td>
+                <td>{{ movie.time if 'time' in movie else 'N/A' }}</td>
+                <td>
+                    <button onclick="deleteMovie('{{ movie._id }}')" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Add New Movie</h2>
+    <form action="{{ url_for('admin') }}" method="POST">
+        <label for="title">Movie Title:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="time">Show Time:</label>
+        <input type="text" id="time" name="time" required>
+        <button type="submit" class="btn btn-primary">Add Movie</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+</body>
+</html>
