@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <h2>Admin Panel</h2>
+    <h3>Manage Movies</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Show Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.time }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_movie', movie_id=movie._id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Add New Movie</h3>
+    <form method="POST" action="{{ url_for('admin') }}">
+        <label>Title:</label>
+        <input type="text" name="title" required>
+        
+        <label>Show Time:</label>
+        <input type="text" name="time" required>
+
+        <button type="submit">Add Movie</button>
+    </form>
+
+    <a href="{{ url_for('admin_bookings') }}">View Bookings</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

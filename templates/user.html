@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+</head>
+<body>
+    <header>
+        <h1>👤 User Dashboard</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="booking.html">Book Tickets</a>
+            <a href="#my-bookings">My Bookings</a>
+        </nav>
+    </header>
+    <section id="user-controls">
+        <h2>Manage Your Profile</h2>
+        <button onclick="viewBookings()">View My Bookings</button>
+        <button onclick="updateProfile()">Update Profile</button>
+    </section>
+    <footer>
+        <p>&copy; 2025 Movie Ticket Booking System</p>
+    </footer>
+</body>
+<script src="js/script.js"></script>
+</html>

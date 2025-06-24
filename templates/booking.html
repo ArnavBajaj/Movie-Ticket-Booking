@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book Ticket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='booking.css') }}">
+
+</head>
+<body>
+    <h1>Book a Ticket for {{ movie }}</h1>
+    <label>Showtime:</label>
+    <select id="showtime">
+        {% for show in showtimes %}
+            <option value="{{ show.time }}">{{ show.time }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="email" id="email" placeholder="Your Email">
+    <button onclick="bookTicket()">Confirm Booking</button>
+
+    <script>
+        function bookTicket() {
+            const bookingData = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                movie: "{{ movie }}",
+                showtime: document.getElementById("showtime").value
+            };
+
+            fetch("/confirm_booking", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bookingData)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message));
+        }
+    </script>
+</body>
+</html>
